@@ -1,0 +1,28 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'roadmap.css' %}">
+
+<div class="navbar">
+<div>AI Course Rec</div>
+<div>
+<a href="/">Home</a>
+<a href="/dashboard/">Dashboard</a>
+</div>
+</div>
+
+<div class="container">
+
+<h2>Total Domains: {{count}}</h2>
+
+<div class="dashboard-grid">
+{% for d in domains %}
+
+<div class="card">
+<h3>{{d.name}}</h3>
+<p>{{d.description}}</p>
+<button onclick="window.location.href='/domain/{{d.id}}/'">View</button>
+</div>
+
+{% endfor %}
+</div>
+
+</div>

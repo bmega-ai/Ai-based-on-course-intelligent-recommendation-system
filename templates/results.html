@@ -1,0 +1,50 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}" />
+
+<div class="navbar">
+  <div>AI Course Rec</div>
+  <div>
+    <a href="/">Home</a>
+    <a href="/dashboard/">Dashboard</a>
+  </div>
+</div>
+
+<div class="container">
+  <h2>Recommended Domains</h2>
+
+  {% if query %}
+  <p style="color: #666; margin-bottom: 20px">
+    <strong>Search query:</strong> "{{ query }}"
+  </p>
+  {% endif %} {% if recommendations %} {% for d,score in recommendations %}
+
+  <div class="card">
+    <h3>{{d.name}}</h3>
+
+    <p>{{d.description}}</p>
+
+    {% if score > 0 %}
+    <p style="color: #5b6cff; font-weight: bold">
+      Match Score: {{ score|floatformat:2 }}%
+    </p>
+    {% endif %}
+
+    <div class="result-actions">
+      <button onclick="window.location.href='/domain/{{d.id}}/'">View Roadmap</button>
+      
+      {% if d.youtube_link %}
+      <a href="{{d.youtube_link}}" class="course-btn btn-youtube">Watch Tutorial</a>
+      {% endif %}
+      
+      {% if d.google_search_link %}
+      <a href="{{d.google_search_link}}" class="course-btn btn-google">Google Search</a>
+      {% endif %}
+    </div>
+  </div>
+
+  {% endfor %} {% else %}
+  <p style="color: #999">
+    No domains found for your query. Please try a different skill or domain.
+  </p>
+  {% endif %}
+</div>

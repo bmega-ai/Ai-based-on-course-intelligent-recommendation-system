@@ -1,0 +1,102 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'roadmap.css' %}" />
+
+<div class="navbar">
+  <div>AI Course Rec</div>
+  <div>
+    <a href="/">Home</a>
+    <a href="/dashboard/">Dashboard</a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">Roadmap</p>
+      <h1>{{domain.name}}</h1>
+      <p class="domain-description">{{domain.description}}</p>
+    </div>
+
+    <div class="meta-panel">
+      <div class="meta-block">
+        <span class="meta-label">Core Skills</span>
+        <div class="skill-list">
+          {% for s in skills %}
+          <span class="skill">{{s}}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      {% if domain.youtube_link or domain.coursera_link or domain.fcc_link or domain.guvi_link %}
+      <div class="meta-block">
+        <span class="meta-label">Full Course Links</span>
+        <div class="course-buttons">
+          {% if domain.youtube_link %}
+          <a href="{{domain.youtube_link}}" class="course-btn btn-youtube">YouTube</a>
+          {% endif %}
+          {% if domain.coursera_link %}
+          <a href="{{domain.coursera_link}}" class="course-btn btn-coursera">Coursera</a>
+          {% endif %}
+          {% if domain.fcc_link %}
+          <a href="{{domain.fcc_link}}" class="course-btn btn-fcc">freeCodeCamp</a>
+          {% endif %}
+          {% if domain.guvi_link %}
+          <a href="{{domain.guvi_link}}" class="course-btn btn-guvi">GUVI</a>
+          {% endif %}
+          {% if domain.google_search_link %}
+          <a href="{{domain.google_search_link}}" class="course-btn btn-google">Google Search</a>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <section class="roadmap-section">
+    <div class="roadmap-header">
+      <h2>Learning Roadmap</h2>
+      <p>
+        Click any topic to view the full description, key topics, and direct English tutorial videos.
+      </p>
+    </div>
+
+    <div class="roadmap">
+      {% for step in steps %}
+      <div class="roadmap-card" data-index="{{forloop.counter0}}">
+        <div class="roadmap-node">{{forloop.counter}}</div>
+        <div class="roadmap-content">
+          <h3 class="step-title">{{step.title}}</h3>
+          <p class="step-summary">{{step.description}}</p>
+          <div class="roadmap-action">View details</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <button class="print-button" onclick="window.print()">Print Roadmap</button>
+</div>
+
+<div id="roadmap-modal" class="roadmap-modal">
+  <div class="modal-card">
+    <button id="roadmap-modal-close" class="modal-close">×</button>
+    <div class="modal-header">
+      <span class="eyebrow">Topic details</span>
+      <h2 id="modal-title"></h2>
+    </div>
+    <p id="modal-description" class="modal-description"></p>
+    <div class="important-block">
+      <strong>Important topics to cover</strong>
+      <ul id="modal-topics"></ul>
+    </div>
+    
+    <div id="modal-video-container" style="margin-top: 24px;">
+      <a id="modal-video-link" href="#" class="video-button">
+        Watch on YouTube (English)
+      </a>
+    </div>
+  </div>
+</div>
+
+{{ steps|json_script:"roadmapSteps" }}
+<script src="{% static 'js/roadmap.js' %}"></script>

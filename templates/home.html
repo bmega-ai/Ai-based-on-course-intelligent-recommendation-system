@@ -1,0 +1,30 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+<div class="navbar">
+<div>AI Course Rec</div>
+<div>
+<a href="/">Home</a>
+<a href="/dashboard/">Dashboard</a>
+</div>
+</div>
+
+<div class="container">
+
+<h1 style="background:linear-gradient(90deg,#5b6cff,#9f5bff);
+-webkit-background-clip:text;
+color:transparent;
+font-size:50px;">
+Discover your perfect learning path
+</h1>
+
+<form action="/results/">
+<input name="query" placeholder="Enter skill or domain"
+style="padding:15px;border-radius:30px;width:300px;border:1px solid #ccc">
+<button style="padding:15px 25px;border:none;border-radius:30px;
+background:linear-gradient(90deg,#5b6cff,#9f5bff);color:white;">
+Analyze
+</button>
+</form>
+
+</div>
